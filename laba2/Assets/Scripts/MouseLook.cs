@@ -12,8 +12,8 @@ public class MouseLook : MonoBehaviour
     public float _rotationSpeedHor = 5.0f;
     public float _rotationSpeedVer = 5.0f;
 
-    public float maxVert = 45.0f;
-    public float minVert = -45.0f;
+    public float maxVert = 90.0f;
+    public float minVert = -90.0f;
 
     private float _rotationX = 0;
 
