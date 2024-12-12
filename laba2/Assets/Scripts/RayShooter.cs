@@ -32,20 +32,20 @@ public class RayShooter : MonoBehaviour
 
     private void Update()
     {
-        // Переключение режима стрельбы с использованием клавиши T
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ T
         if (Input.GetKeyDown(KeyCode.T))
         {
-            isAutomatic = !isAutomatic; // Переключение режима
+            isAutomatic = !isAutomatic; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             nextFireTime = Time.time + fireSpeed;
-            Debug.Log("Режим стрельбы: " + (isAutomatic ? "Автоматический" : "Одиночный"));
+            Debug.Log("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " + (isAutomatic ? "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" : "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ"));
 
 
         }
 
-        // Проверка, нажат ли лкм
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ
         if (Input.GetMouseButton(0) && currentAmmo > 0 && Time.time >= nextFireTime)
         {
-            if (isAutomatic || Input.GetMouseButtonDown(0)) // Проверяем режим стрельбы
+            if (isAutomatic || Input.GetMouseButtonDown(0)) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             {
                 Fire();
                 nextFireTime = Time.time + fireSpeed;
@@ -54,11 +54,11 @@ public class RayShooter : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) && currentAmmo < maxAmmo)
         {
-            Reload(); // Перезарядка
+            Reload(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
 
-        // Обновление интерфейса боеприпасов
-        Debug.Log($"Fire Origin Position: {fireOrigin.position}, Camera Forward: {_camera.transform.forward}");
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        //Debug.Log($"Fire Origin Position: {fireOrigin.position}, Camera Forward: {_camera.transform.forward}");
     }
 
     private void Fire()
@@ -66,7 +66,7 @@ public class RayShooter : MonoBehaviour
         fireOrigin.localPosition = new Vector3(0, 0, 1);
         Vector3 firePoint = _camera.transform.position + _camera.transform.forward * 0.5f;
         Vector3 fireDirection = new Vector3(_camera.transform.forward.x, 0, _camera.transform.forward.z).normalized;
-        Debug.Log($"Camera Position: {_camera.transform.position}");
+        //Debug.Log($"Camera Position: {_camera.transform.position}");
         Ray ray = new Ray(firePoint, fireDirection);
 
         RaycastHit hit;
@@ -83,21 +83,21 @@ public class RayShooter : MonoBehaviour
             else
             {
                 StartCoroutine(SphereIndicatorCoroutine(hit.point, new Vector3(0.2f, 0.2f, 0.2f)));
-                Debug.DrawLine(this.transform.position, hit.point, Color.green, 6);
+                //Debug.DrawLine(this.transform.position, hit.point, Color.green, 6);
             }
         }
 
         currentAmmo--;
         nextFireTime = Time.time + fireSpeed;
-        Debug.Log("-1");
+        //Debug.Log("-1");
         UpdateAmmoUI();
     }
 
     private void Reload()
     {
         nextFireTime = Time.time + reloadSpeed;
-        currentAmmo = maxAmmo; // Сбрасываем количество патронов до максимума
-        Debug.Log("Перезарядка! Теперь у вас " + currentAmmo + " патронов.");
+        currentAmmo = maxAmmo; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        //Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ! пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ " + currentAmmo + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.");
         UpdateAmmoUI();
 
     }
@@ -106,11 +106,11 @@ public class RayShooter : MonoBehaviour
         if (ammoCounterText != null)
         {
             ammoCounterText.text = $"Ammo: {currentAmmo}/{maxAmmo}";
-            Debug.Log($"Ammo UI Updated");
+            //Debug.Log($"Ammo UI Updated");
         }
         else
         {
-            Debug.Log("Ammo Counter Text is not assigned!");
+            //Debug.Log("Ammo Counter Text is not assigned!");
         }
     }
     private void OnGUI()
