@@ -58,7 +58,7 @@ public class RayShooter : MonoBehaviour
         }
 
         // ���������� ���������� �����������
-        //Debug.Log($"Fire Origin Position: {fireOrigin.position}, Camera Forward: {_camera.transform.forward}");
+        Debug.Log($"Fire Origin Position: {fireOrigin.position}, Camera Forward: {_camera.transform.forward}");
     }
 
     private void Fire()
@@ -66,7 +66,7 @@ public class RayShooter : MonoBehaviour
         fireOrigin.localPosition = new Vector3(0, 0, 1);
         Vector3 firePoint = _camera.transform.position + _camera.transform.forward * 0.5f;
         Vector3 fireDirection = new Vector3(_camera.transform.forward.x, 0, _camera.transform.forward.z).normalized;
-        //Debug.Log($"Camera Position: {_camera.transform.position}");
+        Debug.Log($"Camera Position: {_camera.transform.position}");
         Ray ray = new Ray(firePoint, fireDirection);
 
         RaycastHit hit;
@@ -83,13 +83,13 @@ public class RayShooter : MonoBehaviour
             else
             {
                 StartCoroutine(SphereIndicatorCoroutine(hit.point, new Vector3(0.2f, 0.2f, 0.2f)));
-                //Debug.DrawLine(this.transform.position, hit.point, Color.green, 6);
+                Debug.DrawLine(this.transform.position, hit.point, Color.green, 6);
             }
         }
 
         currentAmmo--;
         nextFireTime = Time.time + fireSpeed;
-        //Debug.Log("-1");
+        Debug.Log("-1");
         UpdateAmmoUI();
     }
 
@@ -97,7 +97,7 @@ public class RayShooter : MonoBehaviour
     {
         nextFireTime = Time.time + reloadSpeed;
         currentAmmo = maxAmmo; // ���������� ���������� �������� �� ���������
-        //Debug.Log("�����������! ������ � ��� " + currentAmmo + " ��������.");
+        Debug.Log("�����������! ������ � ��� " + currentAmmo + " ��������.");
         UpdateAmmoUI();
 
     }
@@ -106,11 +106,11 @@ public class RayShooter : MonoBehaviour
         if (ammoCounterText != null)
         {
             ammoCounterText.text = $"Ammo: {currentAmmo}/{maxAmmo}";
-            //Debug.Log($"Ammo UI Updated");
+            Debug.Log($"Ammo UI Updated");
         }
         else
         {
-            //Debug.Log("Ammo Counter Text is not assigned!");
+            Debug.Log("Ammo Counter Text is not assigned!");
         }
     }
     private void OnGUI()
