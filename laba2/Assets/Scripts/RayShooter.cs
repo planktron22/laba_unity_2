@@ -32,6 +32,7 @@ public class RayShooter : MonoBehaviour
 
     private void Update()
     {
+
         // ������������ ������ �������� � �������������� ������� T
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -63,10 +64,14 @@ public class RayShooter : MonoBehaviour
 
     private void Fire()
     {
-        fireOrigin.localPosition = new Vector3(0, 0, 1);
-        Vector3 firePoint = _camera.transform.position + _camera.transform.forward * 0.5f;
-        Vector3 fireDirection = new Vector3(_camera.transform.forward.x, 0, _camera.transform.forward.z).normalized;
-        Debug.Log($"Camera Position: {_camera.transform.position}");
+        // Установка позиции начала выстрела.
+        fireOrigin.localPosition = new Vector3(0, 0, 1); // Измените согласно вашей модели
+
+        // Получение точки, откуда будет произведен выстрел,
+        // используя позицию и поворот персонажа.
+        Vector3 firePoint = fireOrigin.position; // Используем fireOrigin для задания точки выстрела
+        Vector3 fireDirection = fireOrigin.forward; // Используем вектор "вперед" для направления стрельбы
+
         Ray ray = new Ray(firePoint, fireDirection);
 
         RaycastHit hit;
@@ -78,19 +83,19 @@ public class RayShooter : MonoBehaviour
 
             if (target != null)
             {
+                // Если цель была найдена, запускаем реакцию на попадание
                 target.ReactToHit();
             }
             else
             {
+                // Если цель не была найдена, создаем индикатор попадания в точку.
                 StartCoroutine(SphereIndicatorCoroutine(hit.point, new Vector3(0.2f, 0.2f, 0.2f)));
                 Debug.DrawLine(this.transform.position, hit.point, Color.green, 6);
             }
         }
 
-        currentAmmo--;
-        nextFireTime = Time.time + fireSpeed;
-        Debug.Log("-1");
-        UpdateAmmoUI();
+        currentAmmo--; // Уменьшаем количество патронов
+        nextFireTime = Time.time + fireSpeed; // Считаем время следующего выстрела
     }
 
     private void Reload()

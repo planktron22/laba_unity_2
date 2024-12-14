@@ -2252,9 +2252,9 @@ GameObject:
   - component: {fileID: 996131057}
   - component: {fileID: 996131056}
   - component: {fileID: 996131061}
-  - component: {fileID: 996131062}
   - component: {fileID: 996131064}
   - component: {fileID: 996131063}
+  - component: {fileID: 996131065}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2385,19 +2385,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 6
   _gravity: -9.8
---- !u!114 &996131062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 996131055}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c7d0df962cf70147b2c1286356aff69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ammoCounterText: {fileID: 1779705485}
 --- !u!54 &996131063
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2448,6 +2435,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &996131065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996131055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c7d0df962cf70147b2c1286356aff69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammoCounterText: {fileID: 0}
 --- !u!1001 &1066637791
 PrefabInstance:
   m_ObjectHideFlags: 0
