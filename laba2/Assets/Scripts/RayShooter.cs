@@ -6,32 +6,33 @@ using UnityEngine.UI;
 
 public class RayShooter : MonoBehaviour
 {
-    private Camera _camera;
+    private Camera playerCamera;
     private bool isAutomatic = false;
     private int maxAmmo = 30;
     private int currentAmmo = 30;
     private float fireSpeed = 0.1f;
     private float reloadSpeed = 2.5f;
     private float nextFireTime;
-    [SerializeField] private TextMeshProUGUI ammoCounterText;
+    public TMP_Text ammoCounterText;
 
     private Transform fireOrigin;
     void Start()
     {
-        _camera = GetComponent<Camera>();
+        playerCamera = Camera.main;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
         fireOrigin = new GameObject("FireOrigin").transform;
-        fireOrigin.parent = _camera.transform;
+        fireOrigin.parent = playerCamera.transform;
         fireOrigin.localPosition = new Vector3(0, 0, 1);
-
+        currentAmmo = maxAmmo;
         UpdateAmmoUI();
     }
 
     private void Update()
     {
+
 
         // ������������ ������ �������� � �������������� ������� T
         if (Input.GetKeyDown(KeyCode.T))
@@ -59,7 +60,8 @@ public class RayShooter : MonoBehaviour
         }
 
         // ���������� ���������� �����������
-        Debug.Log($"Fire Origin Position: {fireOrigin.position}, Camera Forward: {_camera.transform.forward}");
+        //Debug.Log($"Fire Origin Position: {fireOrigin.position}, Camera Forward: {_camera.transform.forward}");
+        UpdateAmmoUI();
     }
 
     private void Fire()
@@ -111,7 +113,7 @@ public class RayShooter : MonoBehaviour
         if (ammoCounterText != null)
         {
             ammoCounterText.text = $"Ammo: {currentAmmo}/{maxAmmo}";
-            Debug.Log($"Ammo UI Updated");
+            //Debug.Log($"Ammo UI Updated");
         }
         else
         {
@@ -127,8 +129,8 @@ public class RayShooter : MonoBehaviour
         string text = "*";
         Vector2 textSize = style.CalcSize(new GUIContent(text));
 
-        float posX = _camera.pixelWidth / 2 - textSize.x / 2;
-        float posY = _camera.pixelHeight / 2 - textSize.y / 2;
+        float posX = playerCamera.pixelWidth / 2 - textSize.x / 2;
+        float posY = playerCamera.pixelHeight / 2 - textSize.y / 2;
 
         GUI.Label(new Rect(posX, posY, textSize.x, textSize.y), text, style);
     }

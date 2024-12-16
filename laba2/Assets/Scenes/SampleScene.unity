@@ -1901,6 +1901,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1666233766}
     m_Modifications:
+    - target: {fileID: 839209832740610852, guid: 74e1361de1502364bbb77d820f440cea, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 839209832740610852, guid: 74e1361de1502364bbb77d820f440cea, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8047018175911354743, guid: 74e1361de1502364bbb77d820f440cea, type: 3}
       propertyPath: m_Name
       value: Level 1
@@ -2067,9 +2075,10 @@ GameObject:
   - component: {fileID: 963194230}
   - component: {fileID: 963194231}
   - component: {fileID: 963194232}
+  - component: {fileID: 963194233}
   m_Layer: 6
   m_Name: Main Camera
-  m_TagString: Player
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2141,7 +2150,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2228,6 +2237,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &963194233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 439273f7122c81040a243eb5bc6cc829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grenadePrefab: {fileID: 8228458036296532205, guid: 0fe8e6dae6285764795c7200bbdc6671, type: 3}
+  throwForce: 10
+  maxGrenades: 99
 --- !u!1 &965366272 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8047018175911354743, guid: 74e1361de1502364bbb77d820f440cea, type: 3}
@@ -2254,7 +2278,6 @@ GameObject:
   - component: {fileID: 996131061}
   - component: {fileID: 996131064}
   - component: {fileID: 996131063}
-  - component: {fileID: 996131065}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2364,7 +2387,7 @@ Transform:
   m_GameObject: {fileID: 996131055}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.36, y: 1.95, z: 0}
+  m_LocalPosition: {x: 9.36, y: 2.056, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2383,8 +2406,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e510ce2304f3f1e448bb7a4691528308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 6
-  _gravity: -9.8
+  controller: {fileID: 996131057}
+  speed: 5
+  gravity: -9.81
+  jumpHeight: 1
 --- !u!54 &996131063
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2435,19 +2460,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &996131065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 996131055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c7d0df962cf70147b2c1286356aff69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ammoCounterText: {fileID: 0}
 --- !u!1001 &1066637791
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4101,7 +4113,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: a
+  m_text: 'AMMO: 30/30'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

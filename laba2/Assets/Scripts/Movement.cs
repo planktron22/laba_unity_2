@@ -4,29 +4,49 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public float _speed = 6.0f;
-    public float _gravity = -9.8f;
-    private CharacterController _CharacterController;
+    public CharacterController controller; // Контроллер персонажа
+    public float speed = 5.0f; // Скорость движения
+    public float gravity = -9.81f; // Гравитация
+    public float jumpHeight = 1.0f; // Высота прыжка
 
-    private void Start()
+    private Vector3 velocity; // Вектор скорости
+    private bool isGrounded; // Проверка, находится ли персонаж на земле
+
+    void Update()
     {
-        _CharacterController = GetComponent<CharacterController>();
-        if (_CharacterController == null)
-            Debug.Log("CharacterController is NULL");
+        // Проверяем, находится ли персонаж на земле
+        isGrounded = controller.isGrounded;
+
+        // Обработка ввода с клавиатуры
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        // Определяем направление движения
+        Vector3 move = transform.right * horizontal + transform.forward * vertical;
+
+        // Двигаем персонажа
+        controller.Move(move * speed * Time.deltaTime);
+
+        // Обработка прыжка
+        if (isGrounded && Input.GetButtonDown("Jump"))
+        {
+            // Добавление силы для прыжка
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+
+        // Применяем гравитацию
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f; // Устанавливаем значение, чтобы персонаж оставался на полу
+        }
+        else
+        {
+            velocity.y += gravity * Time.deltaTime; // Применяем гравитацию
+        }
+
+        // Двигаем персонажа с учетом гравитации
+        controller.Move(velocity * Time.deltaTime);
+
+      
     }
-
-    private void Update()
-    {
-        float deltaX = Input.GetAxis("Horizontal") * _speed;
-        float deltaZ = Input.GetAxis("Vertical") * _speed;
-        Vector3 movement = new Vector3(deltaX, 0, deltaZ);
-        movement = Vector3.ClampMagnitude(movement, _speed);
-        movement *= Time.deltaTime;
-        movement.y = _gravity;
-
-        movement = transform.TransformDirection(movement);
-        _CharacterController.Move(movement);
-    }
-
 }
-
