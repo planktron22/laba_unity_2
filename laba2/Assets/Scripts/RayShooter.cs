@@ -112,7 +112,7 @@ public class RayShooter : MonoBehaviour
     {
         if (ammoCounterText != null)
         {
-            ammoCounterText.text = $"Ammo: {currentAmmo}/{maxAmmo}";
+            ammoCounterText.text = $"AMMO: {currentAmmo}/{maxAmmo}";
             //Debug.Log($"Ammo UI Updated");
         }
         else
