@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 C:\Users\User\Documents\GitHub\laba_unity_2\laba2
+=======
+C:\Users\plato\Documents\GitHub\laba_unity_2\laba2
+>>>>>>> 68418e8a114f0fa37a54bf8b3cfa35f73ab27d2d
