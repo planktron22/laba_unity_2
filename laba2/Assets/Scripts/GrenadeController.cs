@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class GrenadeController : MonoBehaviour
@@ -10,7 +9,6 @@ public class GrenadeController : MonoBehaviour
     public int maxGrenades = 3;
     private int currentGrenades;
     private Camera playerCamera;
-    public TMP_Text nadeCounterText;
 
     void Start()
     {
@@ -24,9 +22,7 @@ public class GrenadeController : MonoBehaviour
         {
             ThrowGrenade();
             currentGrenades--;
-            UpdateNadeUI();
             Debug.Log("Grenade!");
-
         }
     }
 
@@ -53,23 +49,6 @@ public class GrenadeController : MonoBehaviour
         StartCoroutine(DrawImpactIndicator(grenade));
     }
 
-    private void UpdateNadeUI()
-    {      
-        nadeCounterText.text = $"GRENADES: {currentGrenades}/{maxGrenades}";     
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        // Проверяем, что объект с которым мы соприкасаемся имеет тег "LevelTrigger"
-        if (other.CompareTag("LevelTrigger"))
-        {
-            currentGrenades = maxGrenades; // Восстанавливаем количество гранат
-            UpdateNadeUI(); // Обновляем UI
-            Debug.Log("Grenades replenished!");
-        }
-    }
-
-
     private IEnumerator DrawImpactIndicator(GameObject grenade)
     {
         // Ждем немного, чтобы позволить гранате переместиться
@@ -83,7 +62,7 @@ public class GrenadeController : MonoBehaviour
         explosionPosition += offset * 2.0f; // Сместим на 2 метра вперед
 
         float indicatorDuration = 1f;
-        float radius = 8f;
+        float radius = 1f;
         GameObject indicator = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 
         indicator.transform.position = explosionPosition;
@@ -97,29 +76,27 @@ public class GrenadeController : MonoBehaviour
         Destroy(grenade);
     }
 
-    public void CreateImpactCircle(Vector3 position, float radius)
+    void CreateImpactCircle(Vector3 position, float radius)
     {
+        GameObject indicator = new GameObject("ImpactIndicator");
+        LineRenderer lineRenderer = indicator.AddComponent<LineRenderer>();
+        lineRenderer.positionCount = 50;
+        lineRenderer.startColor = Color.red;
+        lineRenderer.endColor = Color.red;
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
+
+        // Добавление материала для LineRenderer
+        Material material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer.material = material;
+
         // Создание круга
         for (int i = 0; i < 50; i++)
         {
             float angle = i * Mathf.Deg2Rad * 360f / 50;
             float x = position.x + radius * Mathf.Cos(angle);
             float z = position.z + radius * Mathf.Sin(angle);
-
-            // Создаем точки для Visual representation (если нужно)
-            Vector3 point = new Vector3(x, position.y, z);
-            // Здесь можно использовать Instantiate для создания объектов визуализации, если требуется
-        }
-
-        // Добавление Collider для обнаружения столкновений
-        Collider[] hitColliders = Physics.OverlapSphere(position, radius);
-        foreach (var hitCollider in hitColliders)
-        {
-            ReactiveTarget target = hitCollider.GetComponent<ReactiveTarget>();
-            if (target != null)
-            {
-                target.ReactToHit();
-            }
+            lineRenderer.SetPosition(i, new Vector3(x, position.y, z));
         }
     }
 }
