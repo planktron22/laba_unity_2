@@ -11,6 +11,7 @@ TagManager:
   - Remove
   - MoveTo2
   - Remove1
+  - Enemy
   layers:
   - Default
   - TransparentFX
