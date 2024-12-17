@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class PlayerHealth : MonoBehaviour
@@ -6,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth = 100f;
     public float currentHealth;
     public TextMeshProUGUI healthText;
+    public float deathYThreshold = -5f; // Пороговое значение высоты для смерти
 
     void Start()
     {
@@ -25,16 +27,23 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthText();
         if (currentHealth <= 0)
         {
-            Die();
+            ReloadScene();
         }
     }
 
-    private void Die()
+
+    void Update()
+    {
+        if (transform.position.y < deathYThreshold)
+        {
+            ReloadScene();
+        }
+    }
+    private void ReloadScene()
     {
         Debug.Log("Игрок погиб!");
-        Destroy(gameObject);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
     private void UpdateHealthText()
     {
         if (healthText != null)
